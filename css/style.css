@@ -1271,10 +1271,11 @@ button {
     color: var(--color-gold);
 }
 
-.profile-career {
+.profile-concept {
     margin-bottom: 32px;
 }
 
+.profile-concept h4,
 .profile-career h4,
 .profile-message h4 {
     font-family: var(--font-heading);
@@ -1285,6 +1286,19 @@ button {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--color-border);
     letter-spacing: 0.1em;
+}
+
+.profile-concept-text {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--color-accent-dark);
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+}
+
+.profile-career {
+    margin-bottom: 32px;
 }
 
 .profile-career ul {
@@ -1531,6 +1545,12 @@ button {
 
 .access-stations strong {
     color: var(--color-text);
+}
+
+.access-stations-note {
+    margin-top: 8px;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
 }
 
 .access-hours-table {
@@ -2130,11 +2150,11 @@ button {
 }
 
 /* =============================================
-   RESPONSIVE - MOBILE
+   RESPONSIVE - MOBILE (スマホファースト最適化)
    ============================================= */
 @media (max-width: 768px) {
     :root {
-        --section-padding: 60px;
+        --section-padding: 56px;
     }
 
     /* スマホ：横スクロール・右ずれ防止 */
@@ -2148,102 +2168,169 @@ button {
         overflow-x: clip;
         max-width: 100vw;
         overscroll-behavior-x: none;
+        font-size: 15px;
+        line-height: 1.9;
     }
 
     .container {
-        padding-left: max(24px, env(safe-area-inset-left));
-        padding-right: max(24px, env(safe-area-inset-right));
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
     }
 
+    /* --- ヘッダー --- */
     .header-inner {
-        height: 60px;
-        padding-left: max(24px, env(safe-area-inset-left));
-        padding-right: max(24px, env(safe-area-inset-right));
+        height: 56px;
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
     }
 
     .logo-main {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
 
-    /* Hero */
+    .logo-sub {
+        font-size: 0.6rem;
+    }
+
+    /* --- ヒーロー --- */
     .hero {
         min-height: 100svh;
     }
 
     .hero-content {
-        padding: 100px 20px 120px;
+        padding: 90px 20px 100px;
     }
 
     .hero-badge {
-        font-size: 0.7rem;
-        padding: 5px 18px;
-        margin-bottom: 24px;
+        font-size: 0.68rem;
+        padding: 5px 16px;
+        margin-bottom: 20px;
+        letter-spacing: 0.2em;
     }
 
     .hero-title {
-        font-size: 1.8rem;
-        letter-spacing: 0.1em;
+        font-size: 1.55rem;
+        letter-spacing: 0.08em;
+        line-height: 1.7;
+        margin-bottom: 16px;
     }
 
     .hero-subtitle {
-        font-size: 0.95rem;
+        font-size: 0.88rem;
+        letter-spacing: 0.08em;
+        margin-bottom: 16px;
     }
 
     .hero-description {
-        font-size: 0.82rem;
+        font-size: 0.8rem;
+        line-height: 1.9;
+        margin-bottom: 28px;
     }
 
     .hero-cta-group {
         flex-direction: column;
         align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+    }
+
+    .hero-cta-group .btn-lg {
+        width: 100%;
+        max-width: 300px;
     }
 
     .hero-info {
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
     }
 
-    /* Section headers */
+    .hero-info-item {
+        font-size: 0.78rem;
+    }
+
+    /* --- セクション共通 --- */
     .section-header {
-        margin-bottom: 40px;
+        margin-bottom: 32px;
+    }
+
+    .section-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.25em;
+        margin-bottom: 8px;
     }
 
     .section-title {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
+        line-height: 1.6;
+        letter-spacing: 0.06em;
     }
 
-    /* Worries */
+    .section-subtitle {
+        font-size: 0.85rem;
+        margin-top: 12px;
+        line-height: 1.9;
+    }
+
+    .section-divider {
+        margin-top: 14px;
+    }
+
+    /* --- お悩み --- */
     .worries-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 10px;
+        margin-bottom: 36px;
     }
 
     .worry-card {
-        padding: 24px 16px;
+        padding: 20px 12px;
+        border-radius: var(--radius-md);
     }
 
     .worry-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.1rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
+        margin-bottom: 10px;
     }
 
     .worry-card p {
-        font-size: 0.82rem;
+        font-size: 0.78rem;
+        line-height: 1.6;
     }
 
     .worries-message-inner {
-        padding: 28px 24px;
+        padding: 24px 20px;
+        border-left-width: 3px;
     }
 
     .worries-lead {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin-bottom: 14px;
     }
 
-    /* Concept */
+    .worries-text {
+        font-size: 0.84rem;
+        line-height: 1.9;
+        margin-bottom: 14px;
+    }
+
+    .worries-hope {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    /* --- コンセプト --- */
+    .concept-philosophy {
+        margin-bottom: 36px;
+    }
+
     .concept-lead {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        letter-spacing: 0.06em;
     }
 
     .concept-lead::before,
@@ -2251,88 +2338,477 @@ button {
         display: none;
     }
 
-    .concept-values {
-        grid-template-columns: 1fr;
+    .concept-text {
+        font-size: 0.85rem;
+        line-height: 1.9;
     }
 
-    /* Features */
+    .concept-values {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .concept-value-card {
+        padding: 24px 20px;
+        border-radius: var(--radius-md);
+    }
+
+    /* スマホではホバーなしで常に上ボーダー表示（温かみ） */
+    .concept-value-card::before {
+        transform: scaleX(1);
+    }
+
+    .concept-value-number {
+        font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+
+    .concept-value-card h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .concept-value-card p {
+        font-size: 0.84rem;
+        line-height: 1.8;
+    }
+
+    /* --- 施術の特徴 --- */
     .features-list {
-        gap: 48px;
+        gap: 40px;
+    }
+
+    .feature-image {
+        aspect-ratio: 16 / 10;
+        border-radius: var(--radius-md);
+    }
+
+    .feature-number {
+        font-size: 0.68rem;
+        margin-bottom: 8px;
     }
 
     .feature-text h3 {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
+        line-height: 1.6;
+        margin-bottom: 8px;
     }
 
-    /* Approach */
+    .feature-tag {
+        font-size: 0.75rem;
+        padding: 3px 14px;
+        margin-bottom: 12px;
+    }
+
+    .feature-text p:last-child {
+        font-size: 0.84rem;
+        line-height: 1.9;
+    }
+
+    /* --- アプローチ --- */
     .approach-steps {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        gap: 16px;
     }
 
     .approach-step {
         max-width: 100%;
         min-width: auto;
+        padding: 28px 20px;
     }
 
-    /* Menu */
+    .approach-step-header {
+        margin-bottom: 14px;
+    }
+
+    .approach-step-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .approach-step-title {
+        font-size: 1.3rem;
+        letter-spacing: 0.12em;
+    }
+
+    .approach-step-text {
+        font-size: 0.84rem;
+        line-height: 1.9;
+    }
+
+    /* --- CTA中間 --- */
+    .cta-mid {
+        padding: 48px 0;
+    }
+
+    .cta-mid-text {
+        font-size: 1rem;
+        line-height: 1.9;
+        margin-bottom: 24px;
+    }
+
+    .cta-mid-note {
+        font-size: 0.78rem;
+    }
+
+    /* --- メニュー --- */
     .menu-card-content {
-        padding: 32px 24px;
+        padding: 28px 20px;
+    }
+
+    .menu-card-title {
+        font-size: 1.15rem;
+        margin-bottom: 16px;
     }
 
     .menu-card-price-num {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
+    }
+
+    .menu-card-price-unit {
+        font-size: 0.9rem;
+    }
+
+    .menu-card-time {
+        font-size: 0.88rem;
+        margin-bottom: 16px;
+    }
+
+    .menu-card-desc {
+        font-size: 0.84rem;
+        line-height: 1.9;
+        margin-bottom: 24px;
+    }
+
+    .menu-card-includes {
+        padding: 20px 16px;
+        margin-bottom: 20px;
+    }
+
+    .menu-card-includes h4 {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
     }
 
     .menu-includes-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .menu-include-item {
+        font-size: 0.84rem;
+    }
+
+    .menu-card-symptoms h4 {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+
+    .symptom-tag {
+        font-size: 0.75rem;
+        padding: 4px 12px;
     }
 
     .menu-option-card {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 28px 24px;
-    }
-
-    /* Profile */
-    .profile-name {
-        font-size: 1.3rem;
-    }
-
-    .profile-message blockquote {
         padding: 24px 20px;
     }
 
-    /* Blog */
+    .menu-note p {
+        font-size: 0.78rem;
+    }
+
+    /* --- プロフィール --- */
+    .profile-name {
+        font-size: 1.25rem;
+        text-align: center;
+    }
+
+    .profile-name-role {
+        font-size: 0.75rem;
+    }
+
+    .profile-credentials {
+        justify-content: center;
+        margin-bottom: 24px;
+    }
+
+    .profile-badge {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+    }
+
+    .profile-concept {
+        margin-bottom: 24px;
+    }
+
+    .profile-concept-text {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        text-align: center;
+    }
+
+    .profile-career {
+        margin-bottom: 24px;
+    }
+
+    .profile-career li {
+        font-size: 0.84rem;
+    }
+
+    .profile-message blockquote {
+        padding: 20px 16px;
+        border-left-width: 3px;
+    }
+
+    .profile-message blockquote p {
+        font-size: 0.84rem;
+        line-height: 1.9;
+        margin-bottom: 12px;
+    }
+
+    /* --- FAQ --- */
+    .faq-question {
+        padding: 16px 16px;
+        gap: 12px;
+    }
+
+    .faq-q-mark {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        font-size: 0.78rem;
+    }
+
+    .faq-q-text {
+        font-size: 0.88rem;
+    }
+
+    .faq-toggle {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        font-size: 0.78rem;
+    }
+
+    .faq-answer-inner {
+        padding: 0 16px 20px;
+        gap: 12px;
+    }
+
+    .faq-a-mark {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        font-size: 0.78rem;
+    }
+
+    .faq-answer-inner p {
+        font-size: 0.84rem;
+        line-height: 1.9;
+    }
+
+    /* --- アクセス --- */
+    .access-map iframe {
+        height: 280px;
+    }
+
+    .access-info-card h3 {
+        font-size: 0.85rem;
+    }
+
+    .access-info-card p {
+        font-size: 0.84rem;
+    }
+
+    .access-stations li {
+        font-size: 0.84rem;
+        line-height: 1.8;
+        padding: 3px 0;
+    }
+
+    .access-hours-table td {
+        font-size: 0.84rem;
+        padding: 6px 0;
+    }
+
+    .access-hours-table td:first-child {
+        width: 90px;
+        font-size: 0.78rem;
+    }
+
+    /* --- ブログ --- */
     .blog-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
     }
 
-    /* SNS */
+    .blog-card-content {
+        padding: 16px 20px 20px;
+    }
+
+    .blog-card-title {
+        font-size: 0.95rem;
+    }
+
+    .blog-card-excerpt {
+        font-size: 0.8rem;
+    }
+
+    /* --- SNS --- */
+    .sns {
+        padding: 48px 0;
+    }
+
     .sns-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
     }
 
-    /* CTA Final */
+    .sns-card {
+        padding: 24px 16px;
+    }
+
+    .sns-card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+
+    .sns-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .sns-handle {
+        font-size: 0.75rem;
+        margin-bottom: 8px;
+    }
+
+    .sns-desc {
+        font-size: 0.78rem;
+        margin-bottom: 14px;
+    }
+
+    .sns-card .btn-sm {
+        padding: 8px 18px;
+        font-size: 0.78rem;
+    }
+
+    /* --- CTA Final --- */
+    .cta-final {
+        padding: 56px 0;
+    }
+
     .cta-final-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        letter-spacing: 0.08em;
+        line-height: 1.8;
+    }
+
+    .cta-final-text {
+        font-size: 0.84rem;
+        line-height: 1.9;
+        margin-bottom: 28px;
     }
 
     .cta-final-info {
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
     }
 
-    /* Footer */
+    .cta-final-info-item {
+        font-size: 0.78rem;
+    }
+
+    /* --- ボタン --- */
+    .btn-lg {
+        padding: 13px 32px;
+        font-size: 0.9rem;
+    }
+
+    .btn-xl {
+        padding: 15px 40px;
+        font-size: 0.95rem;
+    }
+
+    /* --- フッター --- */
+    .footer {
+        padding: 40px 0 0;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 28px;
+        padding-bottom: 28px;
     }
 
-    /* Floating CTA (mobile bottom bar) */
+    .footer-brand {
+        text-align: center;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-tagline {
+        font-size: 0.78rem;
+        text-align: center;
+    }
+
+    .footer-address {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .footer-nav h4,
+    .footer-info h4,
+    .footer-sns h4 {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+    }
+
+    .footer-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+    }
+
+    .footer-nav ul li {
+        margin-bottom: 0;
+    }
+
+    .footer-nav ul li a {
+        font-size: 0.78rem;
+    }
+
+    .footer-info p {
+        font-size: 0.78rem;
+    }
+
+    .footer-sns-links {
+        gap: 10px;
+    }
+
+    .footer-sns-links a {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .footer-bottom {
+        padding: 16px 0;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .footer-bottom p {
+        font-size: 0.7rem;
+    }
+
+    /* --- フローティングCTA（モバイル下部バー） --- */
     .floating-cta {
         bottom: 0;
         right: 0;
@@ -2347,47 +2823,120 @@ button {
     .floating-cta-btn {
         border-radius: 0;
         justify-content: center;
-        padding: 16px;
+        padding: 14px 16px;
+        padding-bottom: max(14px, env(safe-area-inset-bottom));
         width: 100%;
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .back-to-top {
-        bottom: 72px;
+        bottom: 68px;
         left: 16px;
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
+        font-size: 0.78rem;
+    }
+
+    /* モバイルメニュー調整 */
+    .mobile-nav {
+        padding: 80px 28px 40px;
+    }
+
+    .mobile-nav-link {
+        padding: 13px 0;
+        font-size: 0.9rem;
+    }
+
+    .mobile-cta {
+        padding: 13px 20px;
+        font-size: 0.92rem;
+        margin-top: 24px;
     }
 }
 
 /* =============================================
-   RESPONSIVE - SMALL MOBILE
+   RESPONSIVE - SMALL MOBILE (iPhone SE等)
    ============================================= */
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
+        letter-spacing: 0.06em;
     }
 
     .hero-subtitle {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
+    }
+
+    .hero-badge {
+        font-size: 0.62rem;
     }
 
     .worries-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .worry-card {
+        padding: 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 14px;
+    }
+
+    .worry-icon {
+        margin: 0;
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    .worry-card p {
+        font-size: 0.82rem;
     }
 
     .section-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+    }
+
+    .approach-step {
+        padding: 24px 16px;
+    }
+
+    .approach-step-title {
+        font-size: 1.15rem;
+    }
+
+    .concept-lead {
+        font-size: 0.95rem;
+    }
+
+    .cta-final-title {
+        font-size: 1.15rem;
     }
 
     .btn-lg {
         padding: 12px 28px;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
     }
 
     .btn-xl {
-        padding: 14px 36px;
-        font-size: 0.95rem;
+        padding: 13px 32px;
+        font-size: 0.9rem;
+    }
+
+    .sns-content {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .menu-card-price-num {
+        font-size: 2.2rem;
+    }
+
+    .profile-message blockquote {
+        padding: 16px 14px;
     }
 }
 
