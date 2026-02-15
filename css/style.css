@@ -557,49 +557,6 @@ button {
     font-size: 0.9rem;
 }
 
-.hero-scroll {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    animation: fadeInUp 1s ease 1.4s both;
-}
-
-.hero-scroll span {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: rgba(245, 240, 232, 0.5);
-    text-transform: uppercase;
-}
-
-.hero-scroll-line {
-    width: 1px;
-    height: 40px;
-    background: rgba(196, 162, 101, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-scroll-line::after {
-    content: '';
-    position: absolute;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-gold-light);
-    animation: scrollLine 2s ease infinite;
-}
-
-@keyframes scrollLine {
-    0% { top: -100%; }
-    100% { top: 100%; }
-}
-
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -2440,8 +2397,7 @@ button {
 @media print {
     .header,
     .floating-cta,
-    .back-to-top,
-    .hero-scroll {
+    .back-to-top {
         display: none;
     }
 
