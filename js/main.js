@@ -91,14 +91,24 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenu.classList.add('active');
         if (!overlay) createOverlay();
         setTimeout(() => overlay.classList.add('active'), 10);
-        document.body.style.overflow = 'hidden';
+        // スマホで overflow:hidden によるレイアウトシフトを防ぐため、scrollPosition を保存して fixed で対応
+        const scrollY = window.scrollY || window.pageYOffset;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
     }
 
     function closeMobileMenu() {
         hamburger.classList.remove('active');
         mobileMenu.classList.remove('active');
         if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        const scrollY = document.body.style.top ? Math.abs(parseInt(document.body.style.top, 10)) : 0;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        window.scrollTo(0, scrollY);
     }
 
     if (hamburger) {

@@ -2,6 +2,14 @@
    和日月 - Blog Page Styles
    ============================================= */
 
+/* スマホ：横スクロール防止（style.cssのbaseを継承するが念のため） */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+}
+
 /* Blog Hero */
 .blog-hero {
     padding: 120px 0 60px;
