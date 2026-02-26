@@ -1213,11 +1213,16 @@ button {
     align-items: start;
 }
 
-.profile-image-placeholder {
+.profile-image-placeholder,
+.profile-image-photo {
     width: 100%;
     aspect-ratio: 3 / 4;
-    background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 100%);
     border-radius: var(--radius-lg);
+    object-fit: cover;
+}
+
+.profile-image-placeholder {
+    background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
