@@ -807,9 +807,14 @@ button {
     aspect-ratio: 4 / 3;
 }
 
-.feature-image-placeholder {
+.feature-image-placeholder,
+.feature-image-photo {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+}
+
+.feature-image-placeholder {
     background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 100%);
     display: flex;
     align-items: center;
