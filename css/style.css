@@ -1679,6 +1679,27 @@ button {
     overflow: hidden;
 }
 
+.blog-coming-soon {
+    text-align: center;
+    padding: 60px 24px;
+    background: var(--color-cream);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--color-border);
+}
+
+.blog-coming-soon-text {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.blog-coming-soon-sub {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
 /* =============================================
    SNS
    ============================================= */
