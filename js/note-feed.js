@@ -86,6 +86,7 @@
                     '</div>' +
                 '</a>';
             container.appendChild(card);
+            card.classList.add('is-visible');
         });
     }
 
