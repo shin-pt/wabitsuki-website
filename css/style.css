@@ -1700,6 +1700,72 @@ button {
     color: var(--color-text-muted);
 }
 
+/* Note RSS フィード連携 */
+.blog-note-wrapper {
+    margin-top: 24px;
+}
+
+.blog-note-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-muted);
+}
+
+.blog-note-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-muted);
+}
+
+.blog-note-empty a {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
+.blog-note-empty a:hover {
+    color: var(--color-accent-dark);
+}
+
+.blog-note-more {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.blog-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+}
+
+.blog-card-link:hover .blog-card-title {
+    color: var(--color-accent);
+}
+
+.blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-card-readmore {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-top: 8px;
+    transition: var(--transition-base);
+}
+
+.blog-card-link:hover .blog-card-readmore {
+    color: var(--color-accent-dark);
+}
+
+.blog-card-readmore i {
+    margin-left: 4px;
+    font-size: 0.7rem;
+}
+
 /* =============================================
    SNS
    ============================================= */
