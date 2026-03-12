@@ -8,11 +8,12 @@
 
     const NOTE_RSS_URL = 'https://note.com/wabitsuki_seitai/rss';
     const NOTE_PROFILE_URL = 'https://note.com/wabitsuki_seitai';
-    const CORS_PROXY = 'https://api.cors.lol/?url=';
+    const CORS_PROXY = 'https://corsproxy.io/?url=';
     const DISPLAY_COUNT = 3;
 
     function parseThumbnailsFromRssXml(xmlText) {
         var map = {};
+        if (!xmlText || xmlText.indexOf('<item>') === -1) return map;
         var itemRegex = /<item>([\s\S]*?)<\/item>/g;
         var match;
         while ((match = itemRegex.exec(xmlText)) !== null) {
@@ -26,11 +27,24 @@
         return map;
     }
 
+    function fetchThumbnailsFromLocal() {
+        return fetch('/data/note-thumbnails.json')
+            .then(function(res) { return res.ok ? res.json() : {}; })
+            .catch(function() { return {}; });
+    }
+
     function fetchRawRssForThumbnails() {
         return fetch(CORS_PROXY + encodeURIComponent(NOTE_RSS_URL))
             .then(function(res) { return res.text(); })
             .then(parseThumbnailsFromRssXml)
             .catch(function() { return {}; });
+    }
+
+    function fetchThumbnailMap() {
+        return fetchThumbnailsFromLocal().then(function(local) {
+            if (Object.keys(local).length > 0) return local;
+            return fetchRawRssForThumbnails();
+        });
     }
 
     function escapeHtml(str) {
@@ -51,6 +65,12 @@
         const text = html.replace(/<[^>]+>/g, '').trim();
         if (text.length <= maxLength) return text;
         return text.substring(0, maxLength) + '...';
+    }
+
+    function extractFirstImageFromHtml(html) {
+        if (!html) return '';
+        var match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+        return match ? match[1].trim() : '';
     }
 
     function fetchNoteFeed(retryCount) {
@@ -90,7 +110,7 @@
 
         var items = data.items.slice(0, DISPLAY_COUNT);
         items.forEach(function(item) {
-            var thumb = item.thumbnail || thumbnailMap[item.link] || '';
+            var thumb = item.thumbnail || thumbnailMap[item.link] || extractFirstImageFromHtml(item.description || '') || '';
             var excerpt = getExcerpt(item.description, 80);
             var card = document.createElement('article');
             card.className = 'blog-card fade-in';
@@ -118,7 +138,7 @@
         var container = document.getElementById('blogNoteList');
         if (!container) return;
 
-        Promise.all([fetchNoteFeed(), fetchRawRssForThumbnails()])
+        Promise.all([fetchNoteFeed(), fetchThumbnailMap()])
             .then(function(results) {
                 var data = results[0];
                 var thumbnailMap = results[1];
