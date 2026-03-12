@@ -30,44 +30,72 @@
         return text.substring(0, maxLength) + '...';
     }
 
-    function initNoteFeed() {
-        const container = document.getElementById('blogNoteList');
-        if (!container) return;
+    function fetchNoteFeed(retryCount) {
+        retryCount = retryCount || 0;
+        var maxRetries = 3;
+        var retryDelay = 3000;
 
-        const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(NOTE_RSS_URL);
+        var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(NOTE_RSS_URL);
 
-        fetch(apiUrl)
+        return fetch(apiUrl)
             .then(function(res) { return res.json(); })
             .then(function(data) {
-                container.innerHTML = '';
-                if (data.status !== 'ok' || !data.items || data.items.length === 0) {
-                    container.innerHTML = '<p class="blog-note-empty">記事の読み込みに失敗しました。<a href="' + NOTE_PROFILE_URL + '" target="_blank" rel="noopener">noteのコラムを読む</a></p>';
-                    return;
+                if (data.status === 'error' && data.message && data.message.indexOf('being processed') !== -1) {
+                    if (retryCount < maxRetries) {
+                        var container = document.getElementById('blogNoteList');
+                        if (container) {
+                            container.innerHTML = '<div class="blog-note-loading">読み込み中...（' + (retryCount + 1) + '回目再試行）</div>';
+                        }
+                        return new Promise(function(resolve) {
+                            setTimeout(function() {
+                                fetchNoteFeed(retryCount + 1).then(resolve);
+                            }, retryDelay);
+                        });
+                    }
                 }
+                return data;
+            });
+    }
 
-                var items = data.items.slice(0, DISPLAY_COUNT);
-                items.forEach(function(item) {
-                    var thumb = item.thumbnail || '';
-                    var excerpt = getExcerpt(item.description, 80);
-                    var card = document.createElement('article');
-                    card.className = 'blog-card fade-in';
+    function renderNoteCards(data, container) {
+        container.innerHTML = '';
+        if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+            container.innerHTML = '<p class="blog-note-empty">記事の読み込みに失敗しました。<a href="' + NOTE_PROFILE_URL + '" target="_blank" rel="noopener">noteのコラムを読む</a></p>';
+            return;
+        }
 
-                    var imageHtml = thumb
-                        ? '<img src="' + escapeHtml(thumb) + '" alt="" loading="lazy">'
-                        : '<div class="blog-card-image-placeholder"><i class="fas fa-file-alt"></i></div>';
+        var items = data.items.slice(0, DISPLAY_COUNT);
+        items.forEach(function(item) {
+            var thumb = item.thumbnail || '';
+            var excerpt = getExcerpt(item.description, 80);
+            var card = document.createElement('article');
+            card.className = 'blog-card fade-in';
 
-                    card.innerHTML =
-                        '<a href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener" class="blog-card-link">' +
-                            '<div class="blog-card-image">' + imageHtml + '</div>' +
-                            '<div class="blog-card-content">' +
-                                '<span class="blog-card-date">' + escapeHtml(formatDate(item.pubDate)) + '</span>' +
-                                '<h3 class="blog-card-title">' + escapeHtml(item.title) + '</h3>' +
-                                '<p class="blog-card-excerpt">' + escapeHtml(excerpt) + '</p>' +
-                                '<span class="blog-card-readmore">続きを読む <i class="fas fa-external-link-alt"></i></span>' +
-                            '</div>' +
-                        '</a>';
-                    container.appendChild(card);
-                });
+            var imageHtml = thumb
+                ? '<img src="' + escapeHtml(thumb) + '" alt="" loading="lazy">'
+                : '<div class="blog-card-image-placeholder"><i class="fas fa-file-alt"></i></div>';
+
+            card.innerHTML =
+                '<a href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener" class="blog-card-link">' +
+                    '<div class="blog-card-image">' + imageHtml + '</div>' +
+                    '<div class="blog-card-content">' +
+                        '<span class="blog-card-date">' + escapeHtml(formatDate(item.pubDate)) + '</span>' +
+                        '<h3 class="blog-card-title">' + escapeHtml(item.title) + '</h3>' +
+                        '<p class="blog-card-excerpt">' + escapeHtml(excerpt) + '</p>' +
+                        '<span class="blog-card-readmore">続きを読む <i class="fas fa-external-link-alt"></i></span>' +
+                    '</div>' +
+                '</a>';
+            container.appendChild(card);
+        });
+    }
+
+    function initNoteFeed() {
+        var container = document.getElementById('blogNoteList');
+        if (!container) return;
+
+        fetchNoteFeed()
+            .then(function(data) {
+                renderNoteCards(data, container);
             })
             .catch(function() {
                 container.innerHTML = '<p class="blog-note-empty">記事の読み込みに失敗しました。<a href="' + NOTE_PROFILE_URL + '" target="_blank" rel="noopener">noteのコラムを読む</a></p>';
