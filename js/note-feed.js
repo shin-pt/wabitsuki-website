@@ -8,7 +8,30 @@
 
     const NOTE_RSS_URL = 'https://note.com/wabitsuki_seitai/rss';
     const NOTE_PROFILE_URL = 'https://note.com/wabitsuki_seitai';
+    const CORS_PROXY = 'https://api.cors.lol/?url=';
     const DISPLAY_COUNT = 3;
+
+    function parseThumbnailsFromRssXml(xmlText) {
+        var map = {};
+        var itemRegex = /<item>([\s\S]*?)<\/item>/g;
+        var match;
+        while ((match = itemRegex.exec(xmlText)) !== null) {
+            var block = match[1];
+            var linkMatch = block.match(/<link>([^<]+)<\/link>/);
+            var thumbMatch = block.match(/<media:thumbnail>([^<]+)<\/media:thumbnail>/);
+            if (linkMatch && thumbMatch) {
+                map[linkMatch[1].trim()] = thumbMatch[1].trim();
+            }
+        }
+        return map;
+    }
+
+    function fetchRawRssForThumbnails() {
+        return fetch(CORS_PROXY + encodeURIComponent(NOTE_RSS_URL))
+            .then(function(res) { return res.text(); })
+            .then(parseThumbnailsFromRssXml)
+            .catch(function() { return {}; });
+    }
 
     function escapeHtml(str) {
         if (!str) return '';
@@ -57,8 +80,9 @@
             });
     }
 
-    function renderNoteCards(data, container) {
+    function renderNoteCards(data, container, thumbnailMap) {
         container.innerHTML = '';
+        thumbnailMap = thumbnailMap || {};
         if (data.status !== 'ok' || !data.items || data.items.length === 0) {
             container.innerHTML = '<p class="blog-note-empty">記事の読み込みに失敗しました。<a href="' + NOTE_PROFILE_URL + '" target="_blank" rel="noopener">noteのコラムを読む</a></p>';
             return;
@@ -66,7 +90,7 @@
 
         var items = data.items.slice(0, DISPLAY_COUNT);
         items.forEach(function(item) {
-            var thumb = item.thumbnail || '';
+            var thumb = item.thumbnail || thumbnailMap[item.link] || '';
             var excerpt = getExcerpt(item.description, 80);
             var card = document.createElement('article');
             card.className = 'blog-card fade-in';
@@ -94,9 +118,11 @@
         var container = document.getElementById('blogNoteList');
         if (!container) return;
 
-        fetchNoteFeed()
-            .then(function(data) {
-                renderNoteCards(data, container);
+        Promise.all([fetchNoteFeed(), fetchRawRssForThumbnails()])
+            .then(function(results) {
+                var data = results[0];
+                var thumbnailMap = results[1];
+                renderNoteCards(data, container, thumbnailMap);
             })
             .catch(function() {
                 container.innerHTML = '<p class="blog-note-empty">記事の読み込みに失敗しました。<a href="' + NOTE_PROFILE_URL + '" target="_blank" rel="noopener">noteのコラムを読む</a></p>';
