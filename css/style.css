@@ -1077,6 +1077,50 @@ button {
     margin-bottom: 0;
 }
 
+.menu-card-konna {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 28px 24px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.menu-card-konna h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 18px;
+    letter-spacing: 0.06em;
+    text-align: center;
+}
+
+.menu-card-konna h4 i {
+    color: var(--color-accent);
+    margin-right: 8px;
+}
+
+.menu-konna-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 600px) {
+    .menu-konna-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 20px;
+    }
+
+    .menu-card-konna h4 {
+        text-align: left;
+    }
+}
+
 .menu-card-includes {
     background: var(--color-bg);
     border-radius: var(--radius-md);
