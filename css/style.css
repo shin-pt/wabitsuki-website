@@ -1073,6 +1073,10 @@ button {
     margin-right: auto;
 }
 
+.menu-card-desc-last {
+    margin-bottom: 0;
+}
+
 .menu-card-includes {
     background: var(--color-bg);
     border-radius: var(--radius-md);
